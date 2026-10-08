@@ -1,0 +1,14 @@
+#Maven
+target/
+
+#NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+#Variaveis de ambiente
+.env
+.env.*
