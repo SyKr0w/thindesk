@@ -8,6 +8,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.pfc.thindesk.repository.UsuarioRepository;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Configuration
 @EnableWebSecurity
@@ -16,11 +20,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/css/**", "/dist/**", "/plugins/**", "/js/**", "/images/**").permitAll() // Permitir acesso à página de login e arquivos estáticos
-                .anyRequest().authenticated() // Exigir autenticação para qualquer outra página
+                .requestMatchers("/cadastro","/login","/css/**","/dist/**","/plugins/**","/js/**","/images/**").permitAll()
+                .requestMatchers("/ajustes-horarios","/ajustes-horarios/**","/api/ajustes-horarios/**").hasRole("ADMIN")
+                .requestMatchers("/clientes","/clientes/**","/api/clientes/**").hasAnyRole("MODERATOR","ADMIN")
+                .requestMatchers("/","/chamados/**","/api/chamados/**").hasAnyRole("USER","MODERATOR","ADMIN")
+                .anyRequest().authenticated()
             )
+                
             .formLogin(form -> form
                 .loginPage("/login") // Definir a URL da página de login personalizada
                 .defaultSuccessUrl("/", true) // Redirecionar para /home após login bem-sucedido
@@ -33,7 +40,22 @@ public class SecurityConfig {
         return http.build();
     }
     
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    public UserDetailsService userDetailsService(UsuarioRepository usuarioRepository) {
+        return email -> usuarioRepository.findByEmail(email)
+            .map(usuario -> User
+                .withUsername(usuario.getEmail())
+                .password(usuario.getSenha())
+                .roles(usuario.getRole().name())
+                .build()
+            )
+            .orElseThrow(() ->
+                new UsernameNotFoundException("Usuário não encontrado.")
+            );
     }
 }

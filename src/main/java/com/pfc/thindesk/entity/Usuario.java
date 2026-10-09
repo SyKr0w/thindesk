@@ -7,6 +7,9 @@ package com.pfc.thindesk.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Document(collection = "usuarios")
 
@@ -15,17 +18,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author alunocmc
  */
 public class Usuario {
+    
     @Id
     private String id;
  
+    private Role role;
+    
+    @NotBlank(message = "O nome é obrigatório.")
     private String nome;
- 
+
+    @NotBlank(message = "O e-mail é obrigatório.")
+    @Email(message = "Informe um e-mail válido.")
     @Indexed(unique = true)
     private String email;
- 
+
+    @NotBlank(message = "A senha é obrigatória.")
+    @Size(min = 6, message = "A senha deve ter pelo menos 6 caracteres.")
     private String senha;
- 
-    private Role role;
  
     public Usuario() {
     }
@@ -76,4 +85,5 @@ public class Usuario {
     public void setRole(Role role) {
         this.role = role;
     }
+    
 }

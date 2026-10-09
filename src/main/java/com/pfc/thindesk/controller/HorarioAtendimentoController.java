@@ -10,19 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
-@RestController
-@RequestMapping("/api/ajustes-horarios")
+@Controller
+@RequestMapping("/ajustes-horarios")
 public class HorarioAtendimentoController {
 
     @Autowired
     private HorarioAtendimentoService horarioAtendimentoService;
-
-    @GetMapping
-    public String listarHorarios(Model model) {
-        model.addAttribute("horarios", horarioAtendimentoService.listarTodos());
-        return "ajustes-horarios";
-    }
 
     @PostMapping("/salvar")
     public String salvarHorario(@ModelAttribute HorarioAtendimento horarioAtendimento) {

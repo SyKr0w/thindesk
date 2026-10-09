@@ -28,6 +28,9 @@
             height: auto;
             margin-bottom: 1rem;
         }
+        .form-group {
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -40,8 +43,8 @@
             <!-- Formulário de Login -->
             <form th:action="@{/login}" method="post">
                 <div class="form-group mb-3">
-                    <label for="username" class="form-label">Usuário</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu nome de usuário" required>
+                    <label for="username" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" id="username" name="username" placeholder="Digite seu e-mail" required>
                 </div>
                 <div class="form-group mb-3">
                     <label for="password" class="form-label">Senha</label>
@@ -52,6 +55,10 @@
             
             <!-- Link de recuperação de senha e outros -->
             <div class="mt-3">
+                 <p>
+                    Não possui uma conta?
+                    <a th:href="@{/cadastro}">Registre-se aqui</a>
+                </p>
                 <a href="#" class="text-decoration-none">Esqueceu sua senha?</a>
             </div>
         </div>

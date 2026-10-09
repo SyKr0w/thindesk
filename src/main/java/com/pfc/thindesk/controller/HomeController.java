@@ -63,11 +63,8 @@ public class HomeController {
     
     @GetMapping("/ajustes-horarios")
     public String horarios(Model model) {
-        List<HorarioAtendimento> horarios = horarioAtendimentoService.listarTodos();
-        model.addAttribute("ajustes-horarios", horarios);
-        String fragment = "ajustes-horarios :: content";
-        log.info("Carregando fragmento: {}", fragment); // Log para depuração
-        model.addAttribute("content", fragment);
+        model.addAttribute("horarios", horarioAtendimentoService.listarTodos());
+        model.addAttribute("novoHorario", new HorarioAtendimento());
         return "ajustes-horarios";
     }
 

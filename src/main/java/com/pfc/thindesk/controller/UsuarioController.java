@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 
 /**
  *
@@ -33,18 +35,22 @@ public class UsuarioController {
  
     @PostMapping("/cadastro")
     public String cadastrar(
-            @ModelAttribute Usuario usuario,
+            @Valid @ModelAttribute Usuario usuario,
+            BindingResult result,
             Model model) {
- 
+
+        if (result.hasErrors()) {
+            return "cadastro";
+        }
+
         try {
             usuarioService.cadastrar(usuario);
- 
             return "redirect:/login?cadastroSucesso";
+
         } catch (IllegalArgumentException e) {
- 
             model.addAttribute("erro", e.getMessage());
- 
             return "cadastro";
         }
     }
+    
 }
