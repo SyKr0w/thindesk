@@ -40,6 +40,9 @@
             <img th:src="@{/images/logo.png}" alt="Logo" class="logo">
             <h3 class="mb-4">Bem-vindo</h3>
             
+            <div th:if="${param.error}" class="alert alert-danger">E-mail ou senha inválidos</div>
+            <div th:if="${param.logout}" class="alert alert-success">Sessão encerrada</div>
+            <div th:if="${param.cadastroSucesso}" class="alert alert-success">Conta criada, faça login</div>
             <!-- Formulário de Login -->
             <form th:action="@{/login}" method="post">
                 <div class="form-group mb-3">
@@ -59,7 +62,7 @@
                     Não possui uma conta?
                     <a th:href="@{/cadastro}">Registre-se aqui</a>
                 </p>
-                <a href="#" class="text-decoration-none">Esqueceu sua senha?</a>
+                
             </div>
         </div>
     </div>

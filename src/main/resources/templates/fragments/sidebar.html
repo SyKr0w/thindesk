@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta charset="UTF-8">
     </head>
@@ -9,48 +9,22 @@
                 <h4 class="text-center py-3">Thindesk Menu</h4>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}" aria-current="page">Início</a>
+                        <a class="nav-link" th:href="@{/}" aria-current="page">Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/chamados}">
-                            <i class="bi bi-headset"></i> <span class="d-none d-md-inline">Chamados</span>
+                            <i class="bi bi-headset"></i> <span>Chamados</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/clientes}">
-                            <i class="bi bi-person"></i> <span class="d-none d-md-inline">Clientes</span>
+                        <a class="nav-link" th:href="@{/chamados/novo}">
+                            <i class="bi bi-plus-circle"></i> <span>Novo chamado</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="toggleSubmenu(event, this)">
-                            Configurações
-                            <span class="float-end">&#9662;</span> <!-- Setinha -->
-                        </a>
-                        <ul class="nav flex-column submenu">
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/tecnicos}">
-                                    <i class="bi bi-person"></i> <span class="d-none d-md-inline">Técnicos</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/tipo-chamado}">
-                                    <i class="bi bi-megaphone"></i> <span class="d-none d-md-inline">Tipo de Chamado</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/ajustes-horarios}">
-                                    <i class="bi bi-alarm"></i> <span class="d-none d-md-inline">Horário de Atendimento</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{/recursos}">
-                                    <i class="bi bi-screwdriver"></i> <span class="d-none d-md-inline">Recursos</span>
-                                </a>
-                            </li>
-                            <form th:action="@{/logout}" method="post">
-                                <button type="submit" class="btn btn-danger w-70">Sair</button>
-                            </form>
-                        </ul>
+                    <li class="nav-item px-3 mt-3" sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn btn-danger w-100">Sair</button>
+                        </form>
                     </li>
                 </ul>
             </div>

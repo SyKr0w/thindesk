@@ -1,45 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.pfc.thindesk.service;
 
 import com.pfc.thindesk.entity.Role;
 import com.pfc.thindesk.entity.Usuario;
 import com.pfc.thindesk.repository.UsuarioRepository;
+import java.util.Locale;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author alunocmc
- */
-
 @Service
 public class UsuarioService {
-    private final UsuarioRepository usuarioRepository;
-    private final PasswordEncoder passwordEncoder;
- 
-    public UsuarioService(UsuarioRepository usuarioRepository,
-                          PasswordEncoder passwordEncoder) {
-        this.usuarioRepository = usuarioRepository;
-        this.passwordEncoder = passwordEncoder;
+
+    private final UsuarioRepository repository;
+    private final PasswordEncoder encoder;
+
+    public UsuarioService(UsuarioRepository repository, PasswordEncoder encoder) {
+        this.repository = repository;
+        this.encoder = encoder;
     }
- 
+
     public Usuario cadastrar(Usuario usuario) {
- 
-        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
+        String email = usuario.getEmail().trim().toLowerCase(Locale.ROOT);
+        if (repository.existsByEmail(email)) {
             throw new IllegalArgumentException("E-mail já cadastrado.");
         }
- 
-        String senhaComHash = passwordEncoder.encode(usuario.getSenha());
- 
-        usuario.setSenha(senhaComHash);
- 
-        if (usuario.getRole() == null) {
-            usuario.setRole(Role.USER);
-        }
- 
-        return usuarioRepository.save(usuario);
+        usuario.setId(null);
+        usuario.setEmail(email);
+        usuario.setSenha(encoder.encode(usuario.getSenha()));
+        // O cadastro público nunca pode escolher um perfil privilegiado.
+        usuario.setRole(Role.USER);
+        return repository.save(usuario);
     }
 }
