@@ -69,7 +69,10 @@ http://localhost:8080/login
 
 ## Versionamento
 
-A versão atual é `1.1.0-beta`, o incremento do MINOR representa a inclusão de novas funcionalidades, enquanto a mudança de Alpha para Beta representa a disponibilização do sistema para testes externos.
+O projeto utiliza o SemVer, seguindo o formato MAJOR.MINOR.PATCH-pre-release.
+
+Na evolução da versão 1.0.0-alpha para 1.1.0-beta, o MAJOR foi mantido por preservar a compatibilidade com a versão anterior, o MINOR foi incrementado pela implementação do controle de chamados, dashboard e filtros, enquanto o PATCH permaneceu em zero por se tratar de uma atualização de funcionalidades. 
+A mudança de Alpha para Beta representa a integração dessas funcionalidades e a disponibilização do sistema para testes externos por meio do deploy.
 
 ### 1.0.0-alpha
 
@@ -101,7 +104,8 @@ Os usuários, chamados e sessões são armazenados no MongoDB Atlas, as senhas f
 
 ## Dashboard
 
-O dashboard apresenta a quantidade total de chamados, chamados abertos, chamados resolvidos e os registros mais recentes.
+O dashboard apresenta a quantidade total de chamados, chamados abertos, chamados resolvidos e os registros mais recentes. Permite filtrar os chamados por intervalo de datas
+e status, atualizando os indicadores e os registros apresentados.
 
 ![Dashboard do ThinDesk](docs/dashboard.png)
 
