@@ -107,14 +107,17 @@ O dashboard apresenta a quantidade total de chamados, chamados abertos, chamados
 
 ## Deploy
 
-Link da aplicação: PENDENTE
+Link da aplicação: https://thindesk-os18.onrender.com/login
 
 ### Usuário de teste
 
-- E-mail: PENDENTE
-- Senha: PENDENTE
+- E-mail: teste@teste.com
+- Senha: teste123
+
+- E-mail: teste2@teste.com
+- Senha: teste123
 
 ### Técnico de teste
 
-- E-mail: PENDENTE
-- Senha: PENDENTE
+- E-mail: tec@tec.com
+- Senha: admin123
