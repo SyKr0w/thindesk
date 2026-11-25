@@ -56,6 +56,18 @@ Depois acesse:
 http://localhost:8080/login
 ```
 
+## Versionamento
+
+### 1.0.0-alpha
+
+Versão inicial do ThinDesk, com foco na autenticação e no controle de acesso.
+
+- Cadastro, login e logout;
+- Controle de acesso pelos perfis USER, MODERATOR e ADMIN;
+- Validação dos dados de cadastro;
+- Proteção de senhas com BCrypt;
+- Armazenamento de usuários e sessões no MongoDB Atlas;
+- Interface desenvolvida com Thymeleaf.
 ## Banco de dados
 
 Os usuários são armazenados no MongoDB Atlas, as senhas ficam salvas apenas como hash BCrypt, as sessões também são persistidas no MongoDB por meio do Spring Session, a sessão configurada no projeto possui duração de 30 minutos.
